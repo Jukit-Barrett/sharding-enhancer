@@ -63,6 +63,22 @@ abstract class CrudShardingRepository implements ModelContract, RepositoryContra
     }
 
     /**
+     * @desc 创建
+     * @param array $data
+     * @return EnhanceModel | null
+     */
+    public function save(array $data)
+    {
+        $model = $this->getCloneModel();
+
+        if ($model->fill($data)->save()) {
+            return $model;
+        }
+
+        return null;
+    }
+
+    /**
      * @desc 检索
      * @param RetrieveQueryContract $retrieveContract
      * @return LengthAwarePaginator
